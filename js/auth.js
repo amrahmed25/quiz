@@ -109,9 +109,10 @@ const messageDivCSS = `
 
         background: linear-gradient(
             90deg,
-            #ff003c,
-            #ff315f,
-            #008cff
+           #7f00ff,
+            #a100ff,
+            #d100ff,
+            #ff1493
         );
 
         box-shadow:
@@ -301,7 +302,7 @@ console.log("GREETING TEXT:", greetingMessage?.innerText);
 
             // Go to Login page
             setTimeout(() => {
-                window.location.href = "login.html";
+                window.location.href = "home.html";
             }, 1500);
 
 

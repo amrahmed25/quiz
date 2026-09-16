@@ -91,6 +91,62 @@ const changeArenaBtn =
 const homeBtn =
     document.getElementById("home-btn");
 
+// ===================== SOUND SETUP =====================
+
+const muteBtn =
+    document.getElementById("mute-btn");
+
+const backgroundSound =
+    new Audio("background_sound.mp3");
+
+backgroundSound.loop = true;
+backgroundSound.volume = 0.5;
+
+const winnerSound =
+    new Audio("winner.mp3");
+
+const applauseSound =
+    new Audio("1789583658453_applause.wav");
+
+const gameoverSound =
+    new Audio("gameover.mp3");
+
+let isMuted = false;
+
+function updateMuteIcon() {
+    muteBtn.textContent =
+        isMuted ? "🔇" : "🔊";
+
+    muteBtn.classList.toggle(
+        "muted",
+        isMuted
+    );
+}
+
+function playSound(sound) {
+    sound.currentTime = 0;
+    sound.muted = isMuted;
+    sound.play();
+}
+
+muteBtn.addEventListener(
+    "click",
+    function() {
+        isMuted = !isMuted;
+
+        backgroundSound.muted = isMuted;
+        winnerSound.muted = isMuted;
+        applauseSound.muted = isMuted;
+        gameoverSound.muted = isMuted;
+
+        updateMuteIcon();
+    }
+);
+
+updateMuteIcon();
+
+// =========================================================
+
 const questionBank = {
     public: {
         easy: [
@@ -723,6 +779,10 @@ startBtn.addEventListener(
         arenaScreen.classList.add(
             "active"
         );
+
+        playSound(
+            backgroundSound
+        );
     }
 );
 
@@ -1284,6 +1344,17 @@ function finishGame() {
             );
     }
 
+    // Stop the background music once the round is over
+    backgroundSound.pause();
+    backgroundSound.currentTime = 0;
+
+    if (accuracy >= 50) {
+        playSound(winnerSound);
+        playSound(applauseSound);
+    } else {
+        playSound(gameoverSound);
+    }
+
     const rank =
         calculateRank();
 
@@ -1406,6 +1477,10 @@ playAgainBtn.addEventListener(
             gameState.category,
             gameState.difficulty
         );
+
+        playSound(
+            backgroundSound
+        );
     }
 );
 
@@ -1451,6 +1526,9 @@ homeBtn.addEventListener(
         playerNameInput.classList.remove(
             "is-invalid"
         );
+
+        backgroundSound.pause();
+        backgroundSound.currentTime = 0;
     }
 );
 

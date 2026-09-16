@@ -27,7 +27,7 @@ const messageDivCSS = `
         width: min(90vw, 420px);
         min-height: 0;
 
-        display: hidden;
+        display: none;
         align-items: center;
         justify-content: center;
 
